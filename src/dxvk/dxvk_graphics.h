@@ -254,7 +254,12 @@ namespace dxvk {
      */
     VkPipeline getPipelineHandle(
       const DxvkGraphicsPipelineStateInfo&    state,
-      const DxvkRenderPass&                   renderPass);
+      const DxvkRenderPass&                   renderPass,
+	  bool async = false);
+
+	VkPipeline compileInstance(
+	  const Rc<DxvkGraphicsPipelineInstance>& instance,
+	  const DxvkRenderPassFormat&             format);
     
   private:
     
