@@ -1,3 +1,11 @@
+# Disclaimer
+
+This repository uses the [poe-hack](https://github.com/jomihaka/dxvk-poe-hack) async patch.
+It may cause gpu hangs or graphics corruptions when compiling new shaders.
+
+Try to use the default upstream without those patches if possible.
+
+
 # DXVK
 
 A Vulkan-based translation layer for Direct3D 10/11 which allows running 3D applications on Linux using Wine.
