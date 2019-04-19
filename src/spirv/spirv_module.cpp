@@ -296,6 +296,22 @@ namespace dxvk {
     return this->constComposite(vectorTypeId, args.size(), args.data());
   }
   
+
+  uint32_t SpirvModule::constvec3f32(
+          float                   x,
+          float                   y,
+          float                   z) {
+    std::array<uint32_t, 3> args = {{
+      this->constf32(x), this->constf32(y),
+      this->constf32(z),
+    }};
+    
+    uint32_t scalarTypeId = this->defFloatType(32);
+    uint32_t vectorTypeId = this->defVectorType(scalarTypeId, 3);
+    
+    return this->constComposite(vectorTypeId, args.size(), args.data());
+  }
+
   
   uint32_t SpirvModule::constvec4f32(
           float                   x,
@@ -1753,8 +1769,23 @@ namespace dxvk {
     m_code.putWord(b);
     return resultId;
   }
-  
-  
+
+
+  uint32_t SpirvModule::opVectorTimesScalar(
+    uint32_t                resultType,
+    uint32_t                vector,
+    uint32_t                scalar) {
+    uint32_t resultId = this->allocateId();
+
+    m_code.putIns(spv::OpVectorTimesScalar, 5);
+    m_code.putWord(resultType);
+    m_code.putWord(resultId);
+    m_code.putWord(vector);
+    m_code.putWord(scalar);
+    return resultId;
+  }
+
+
   uint32_t SpirvModule::opFFma(
           uint32_t                resultType,
           uint32_t                a,
@@ -2364,7 +2395,22 @@ namespace dxvk {
     m_code.putWord(operand);
     return resultId;
   }
-  
+
+  uint32_t SpirvModule::opPow(
+    uint32_t                resultType,
+    uint32_t                base,
+    uint32_t                exponent) {
+    uint32_t resultId = this->allocateId();
+
+    m_code.putIns(spv::OpExtInst, 7);
+    m_code.putWord(resultType);
+    m_code.putWord(resultId);
+    m_code.putWord(m_instExtGlsl450);
+    m_code.putWord(spv::GLSLstd450Pow);
+    m_code.putWord(base);
+    m_code.putWord(exponent);
+    return resultId;
+  }
   
   uint32_t SpirvModule::opFract(
           uint32_t                resultType,

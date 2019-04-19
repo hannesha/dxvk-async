@@ -143,7 +143,12 @@ namespace dxvk {
             uint32_t                y,
             uint32_t                z,
             uint32_t                w);
-    
+
+    uint32_t constvec3f32(
+            float                   x,
+            float                   y,
+            float                   z);
+
     uint32_t constvec4f32(
             float                   x,
             float                   y,
@@ -641,6 +646,11 @@ namespace dxvk {
             uint32_t                resultType,
             uint32_t                a,
             uint32_t                b);
+
+    uint32_t opVectorTimesScalar(
+            uint32_t                resultType,
+            uint32_t                vector,
+            uint32_t                scalar);
     
     uint32_t opFFma(
             uint32_t                resultType,
@@ -832,6 +842,11 @@ namespace dxvk {
     uint32_t opLog2(
             uint32_t                resultType,
             uint32_t                operand);
+
+    uint32_t opPow(
+            uint32_t                resultType,
+            uint32_t                base,
+            uint32_t                exponent);
     
     uint32_t opFract(
             uint32_t                resultType,
